@@ -27,23 +27,37 @@ public class Calculator {
     }
 
     public static int getMultiplication(int x, int y) {
-        return x * y;
+        long result = (long)x * (long)y;
+        if((int)result != result){
+            throw new ArithmeticException("integer overflow");
+        }
+        return (int)result;
     }
 
     public static double getDivision(double x, double y) {
+        if (y == 0){
+            throw new ArithmeticException("Division by zero");
+        }
         return x / y;
     }
 
     public static int getPow(int x, int y) {
-        int result = 1;
+        long result = 1;
         for (int i = 0; i < y; i++) {
             result = result * x;
         }
-        return result;
+
+        if((int)result != result){
+            throw new ArithmeticException("integer overflow");
+        }
+        return (int)result;
     }
 
 
     public static double getHypot(double[] x) {
+        if (x.length < 2) {
+            throw new ArrayIndexOutOfBoundsException("Expect more then 2 values");
+        }
         double sumOfSquaredArguments = 0;
         for (double i : x) {
             sumOfSquaredArguments = i * i + sumOfSquaredArguments;
@@ -53,7 +67,7 @@ public class Calculator {
 
     public static int getMaxOfArray(int[] x) {
         if (x.length == 0) {
-            throw new ArrayIndexOutOfBoundsException();
+            throw new ArrayIndexOutOfBoundsException("Empty parameter");
         }
         int maxOfArguments = x[0];
         for (int i : x) {
