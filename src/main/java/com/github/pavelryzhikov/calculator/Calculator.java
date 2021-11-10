@@ -11,27 +11,15 @@ public class Calculator {
 //       }
 
     public static int getAddition(int x, int y) {
-        int result = x + y;
-        if (((result^x) & (result^y)) < 0) {
-            throw new ArithmeticException("integer overflow");
-        }
-        return x + y;
+        return Math.addExact(x,y);
     }
 
     public static int getSubtraction(int x, int y) {
-        int result = x - y;
-        if (((x^y) & (x^result)) < 0) {
-            throw new ArithmeticException("integer overflow");
-        }
-        return x - y;
+        return Math.subtractExact(x,y);
     }
 
     public static int getMultiplication(int x, int y) {
-        long result = (long)x * (long)y;
-        if((int)result != result){
-            throw new ArithmeticException("integer overflow");
-        }
-        return (int)result;
+        return java.lang.Math.multiplyExact(x, y);
     }
 
     public static double getDivision(double x, double y) {
@@ -42,15 +30,11 @@ public class Calculator {
     }
 
     public static int getPow(int x, int y) {
-        long result = 1;
+        int result = 1;
         for (int i = 0; i < y; i++) {
-            result = result * x;
+            result = Math.multiplyExact(x,result);
         }
-
-        if((int)result != result){
-            throw new ArithmeticException("integer overflow");
-        }
-        return (int)result;
+        return result;
     }
 
 
