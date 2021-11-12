@@ -1,18 +1,19 @@
 package com.github.pavelryzhikov.service;
 
-import java.util.Set;
+import lombok.AccessLevel;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
+@RequiredArgsConstructor
+@FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class AccountService {
 
-    private final AccountRepository accRep;
-
-    public AccountService(AccountRepository accountRepository) {
-        System.out.println("AccountRepository");
-        accRep = accountRepository;
-    }
+    @NonNull AccountRepository accRep;
 
     public boolean isAccountExist(long clientId, Account account) {
-        Set<Account> allAccounts = accRep.getAllAccountsByClientId(clientId);
-        return allAccounts.contains(account);
+        return accRep.getAllAccountsByClientId(clientId).contains(account);
     }
 }

@@ -1,9 +1,17 @@
 package com.github.pavelryzhikov.service;
 
-public class Account {
-    private final String account;
+import lombok.NonNull;
+import lombok.Value;
 
-    public Account(String accNumber) {
-        account = accNumber;
-    }
+/**
+ * класс данные Account (счет)
+ * <p>
+ * accNumber содержит только поле номер счета
+ */
+
+@Value
+public class Account {
+   @NonNull String account;
 }
+
+

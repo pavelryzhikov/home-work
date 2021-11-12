@@ -1,12 +1,15 @@
 package com.github.pavelryzhikov.service;
 
-import java.util.HashSet;
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.Set;
 
+@Slf4j
 public class AccountRepository {
-    public Set getAllAccountsByClientId(long clientId) {
-        System.out.println("AccountRepository");
 
-        return new HashSet();
+    private Set<Account> accountRepository;
+
+    public Set<Account> getAllAccountsByClientId(long clientId) {
+        return accountRepository;
     }
 }
