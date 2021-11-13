@@ -17,6 +17,9 @@ public class AccountRepositoryTest {
     //@Mock
     AccountRepository accountRepository = Mockito.mock(AccountRepository.class);
 
+    /**
+     * проверка количества вызовов метода
+     */
     @Test
     void callZeroTimesTest() {
         Set<Account> setAccount = new HashSet();
