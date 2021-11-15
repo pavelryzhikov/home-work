@@ -13,7 +13,11 @@ class AccountRepositoryImplTest {
 
     AccountRepository accountRepository;
 
-
+    /**
+     * проверка корректной выдачи результата для id клиента = 1
+     *
+     * @throws FileNotFoundException
+     */
     @Test
     void onlyPersonalAccounts() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
@@ -27,6 +31,11 @@ class AccountRepositoryImplTest {
         allAccountsByClientId.forEach(e -> assertTrue(strings.contains(e.getNumber())));
     }
 
+    /**
+     * проверка наличия конкретного счета у id клиента = 1
+     *
+     * @throws FileNotFoundException
+     */
     @Test
     void successGetAllAccountsByClientId() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
@@ -35,6 +44,9 @@ class AccountRepositoryImplTest {
         assertEquals(1, (int) allAccountsByClientId.stream().filter(e -> e.getNumber().equals("4-ACC1NUM")).count());
     }
 
+    /**
+     * проверка исключения чтения несуществующего файла
+     */
     @Test
     void failGetAllAccountsByClientId() {
         accountRepository = new AccountRepositoryImpl("somePath");
@@ -43,6 +55,11 @@ class AccountRepositoryImplTest {
         });
     }
 
+    /**
+     * проверка корректной выдачи результата для id клиента = 2
+     *
+     * @throws FileNotFoundException
+     */
     @Test
     void accountsWithIdTwo() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
@@ -53,6 +70,11 @@ class AccountRepositoryImplTest {
         allAccountsByClientId.forEach(e -> assertTrue(strings.contains(e.getNumber())));
     }
 
+    /**
+     * проверка некорректной отдачи результата
+     *
+     * @throws FileNotFoundException
+     */
     @Test
     void accountsWithIdThreeFail() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");

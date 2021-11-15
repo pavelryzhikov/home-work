@@ -20,9 +20,10 @@ public class AccountService {
     @NonNull AccountRepository accRep;
 
     /**
-     * @param clientId - id клиента
-     * @param account  - счет
-     * @return Boolean
+     * @param clientId id клиента
+     * @param account  номер счета
+     * @return boolean
+     * возвращает ответ найден ли счет по id клиента
      */
     public boolean isAccountExist(long clientId, Account account) {
         return accRep.getAllAccountsByClientId(clientId).contains(account);
