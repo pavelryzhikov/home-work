@@ -1,5 +1,7 @@
 package com.github.pavelryzhikov.service;
 
+import com.github.pavelryzhikov.dto.Account;
+import com.github.pavelryzhikov.repository.AccountRepository;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
