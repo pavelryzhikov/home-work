@@ -80,7 +80,6 @@ public class AccountRepositoryImpl implements AccountRepository {
         for (String a : fileData) {
             a = a.trim().replace(",", "").replace("\"", "");
             if (a.trim().equals("{")) {
-                System.out.println("start: " + a);
                 i++;
             }
             if (a.contains("clientId")) {
@@ -90,7 +89,6 @@ public class AccountRepositoryImpl implements AccountRepository {
                 number = a.replace("number: ", "");
             }
             if (a.trim().replace(",", "").equals("}") && clientId == parsed_client_id) {
-                System.out.println("end: " + a + " clientId=" + parsed_client_id + " number=" + number);
                 Account account = new Account(number);
                 repository.add(account);
             }
