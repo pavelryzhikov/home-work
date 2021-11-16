@@ -5,6 +5,7 @@ package com.github.pavelryzhikov.repository;
 
 import com.github.pavelryzhikov.dto.Account;
 import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+@Slf4j
 public class AccountRepositoryImpl implements AccountRepository {
 
     private final String filePath;
@@ -63,6 +65,15 @@ public class AccountRepositoryImpl implements AccountRepository {
         return repository;
     }
 
+    /**
+     * метод обновляет файл счетов клиентов по заданным параметрам
+     *
+     * @param clientId id клиента
+     * @param account  номер счета
+     */
+    public void updateFileByClientIdAndAccount(Long clientId, String account) {
+        log.debug("call updateFileByClientIdAndAccount");
+    }
 
 //    private void readFile(String path) throws IOException {
 //        fileData = (ArrayList) Files.readAllLines(Paths.get(path));

@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,6 +13,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class AccountRepositoryImplTest {
 
     AccountRepository accountRepository;
+    private static final String FILE_PATH_CORRECT = "src/main/resources/Accounts.txt";
+    private static final String UPDATED_FILE_PATH = "src/main/resources/AccountsUpdated.txt";
 
     /**
      * проверка корректной выдачи результата для id клиента = 1
@@ -62,7 +65,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void accountsWithIdTwo() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
+        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(2);
         ArrayList<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
@@ -77,12 +80,52 @@ class AccountRepositoryImplTest {
      */
     @Test
     void accountsWithIdThreeFail() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
+        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(3);
         ArrayList<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
         }};
         allAccountsByClientId.forEach(e -> assertFalse(strings.contains(e.getNumber())));
+    }
+
+    @Test
+    void updateClientSuccess() {
+        Long clientId = 3L;
+        String accountNumber = "3-ACCNUM";
+
+
+        accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
+
+        Set<String> accounts = new HashSet() {{
+            add(accountNumber);
+        }};
+
+        Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        allAccountsByClientId.forEach(consumer -> assertTrue(accounts.contains(consumer.getNumber())));
+    }
+
+
+    @Test
+    void updateClientNotFound() {
+        Long clientId = -1L;
+        String accountNumber = "5-ACC1NUM";
+
+        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        assertThrows(IllegalArgumentException.class, () -> {
+            accountRepository.updateFileByClientIdAndAccount(clientId, accountNumber);
+        });
+    }
+
+
+    @Test
+    void updateAccountNotFound() {
+        Long clientId = 3L;
+        String accountNumber = "5-ACC1NUM";
+
+        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        assertThrows(IllegalArgumentException.class, () -> {
+            accountRepository.updateFileByClientIdAndAccount(clientId, accountNumber);
+        });
     }
 
 }
