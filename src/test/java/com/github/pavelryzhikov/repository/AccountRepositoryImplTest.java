@@ -114,14 +114,12 @@ class AccountRepositoryImplTest {
          * проверка что accountNumberFrom счет найден
          */
 
-        //Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
 
         /**
          * проверка что accountNumberTo счет НЕ найден
          */
 
-//      //  allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
         assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
 
         /**
@@ -129,10 +127,6 @@ class AccountRepositoryImplTest {
          */
         accountRepository.updateFileByClientIdAndAccount(clientId, accountNumer);
 
-//        accounts.clear();
-//        accounts.add(accountNumberTo);
-        //allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
-        //AccountService accountService = new AccountService(accountRepository);
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
     }
 
@@ -157,14 +151,12 @@ class AccountRepositoryImplTest {
          * проверка что accountNumberFrom счет найден
          */
 
-        //Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
 
         /**
          * проверка что accountNumberTo счет НЕ найден
          */
 
-//      //  allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
         assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
 
         /**
@@ -172,10 +164,6 @@ class AccountRepositoryImplTest {
          */
         accountRepository.updateFileByClientIdAndAccount(clientId, accountNumer);
 
-//        accounts.clear();
-//        accounts.add(accountNumberTo);
-        //allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
-        //AccountService accountService = new AccountService(accountRepository);
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
     }
 
