@@ -2,6 +2,7 @@ package com.github.pavelryzhikov.repository;
 
 import com.github.pavelryzhikov.dto.Account;
 
+import java.io.IOException;
 import java.util.Set;
 
 /**
@@ -23,7 +24,7 @@ public interface AccountRepository {
      * метод обновляет файл счетов клиентов по заданным параметрам
      *
      * @param clientId id клиента
-     * @param account  номер счета
+     * @param account  номер счета который нужно найти
      */
-    void updateFileByClientIdAndAccount(Long clientId, String account);
+    void updateFileByClientIdAndAccount(Long clientId, String account) throws IOException;
 }

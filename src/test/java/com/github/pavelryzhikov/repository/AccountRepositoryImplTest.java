@@ -1,13 +1,17 @@
 package com.github.pavelryzhikov.repository;
 
 import com.github.pavelryzhikov.dto.Account;
+import com.github.pavelryzhikov.service.AccountService;
 import org.junit.jupiter.api.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
 
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AccountRepositoryImplTest {
@@ -88,31 +92,101 @@ class AccountRepositoryImplTest {
         allAccountsByClientId.forEach(e -> assertFalse(strings.contains(e.getNumber())));
     }
 
+
+    /**
+     * проверка успешного маскирования счета для клиента с одим счетом
+     *
+     * @throws FileNotFoundException
+     */
     @Test
-    void updateClientSuccess() {
+    void updateClientSuccessWithOneAccount() throws IOException {
         Long clientId = 3L;
-        String accountNumber = "3-ACCNUM";
+        String accountNumer = "3-ACCNUM";
+        Account account = new Account(accountNumer);
+        String maskedString = new String(new char[accountNumer.length()]).replace("\0", "*");
+        Account accountMasked = new Account(maskedString);
 
 
+        Files.copy(Paths.get(FILE_PATH_CORRECT), Paths.get(UPDATED_FILE_PATH), REPLACE_EXISTING);
         accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
 
-        Set<String> accounts = new HashSet() {{
-            add(accountNumber);
-        }};
+        /**
+         * проверка что accountNumberFrom счет найден
+         */
 
-        Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
-        allAccountsByClientId.forEach(consumer -> assertTrue(accounts.contains(consumer.getNumber())));
+        //Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
+
+        /**
+         * проверка что accountNumberTo счет НЕ найден
+         */
+
+//      //  allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
+
+        /**
+         * обновляем счет и проверяем что он теперь содержится в файле
+         */
+        accountRepository.updateFileByClientIdAndAccount(clientId, accountNumer);
+
+//        accounts.clear();
+//        accounts.add(accountNumberTo);
+        //allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        //AccountService accountService = new AccountService(accountRepository);
+        assertTrue(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
     }
 
+    /**
+     * проверка успешного маскирования счета для клиента с несколькими счетами
+     *
+     * @throws FileNotFoundException
+     */
+    @Test
+    void updateClientSuccessWithSeveralAccounts() throws IOException {
+        Long clientId = 1L;
+        String accountNumer = "4-ACC1NUM";
+        Account account = new Account(accountNumer);
+        String maskedString = new String(new char[accountNumer.length()]).replace("\0", "*");
+        Account accountMasked = new Account(maskedString);
+
+
+        Files.copy(Paths.get(FILE_PATH_CORRECT), Paths.get(UPDATED_FILE_PATH), REPLACE_EXISTING);
+        accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
+
+        /**
+         * проверка что accountNumberFrom счет найден
+         */
+
+        //Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
+
+        /**
+         * проверка что accountNumberTo счет НЕ найден
+         */
+
+//      //  allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
+
+        /**
+         * обновляем счет и проверяем что он теперь содержится в файле
+         */
+        accountRepository.updateFileByClientIdAndAccount(clientId, accountNumer);
+
+//        accounts.clear();
+//        accounts.add(accountNumberTo);
+        //allAccountsByClientId = accountRepository.getAllAccountsByClientId(clientId);
+        //AccountService accountService = new AccountService(accountRepository);
+        assertTrue(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
+    }
 
     @Test
     void updateClientNotFound() {
         Long clientId = -1L;
-        String accountNumber = "5-ACC1NUM";
+        String account = "5-ACC1NUM";
 
         accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         assertThrows(IllegalArgumentException.class, () -> {
-            accountRepository.updateFileByClientIdAndAccount(clientId, accountNumber);
+            accountRepository.updateFileByClientIdAndAccount(clientId, account);
         });
     }
 
@@ -120,11 +194,11 @@ class AccountRepositoryImplTest {
     @Test
     void updateAccountNotFound() {
         Long clientId = 3L;
-        String accountNumber = "5-ACC1NUM";
+        String accountNumberFrom = "5-ACC1NUM";
 
         accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         assertThrows(IllegalArgumentException.class, () -> {
-            accountRepository.updateFileByClientIdAndAccount(clientId, accountNumber);
+            accountRepository.updateFileByClientIdAndAccount(clientId, accountNumberFrom);
         });
     }
 

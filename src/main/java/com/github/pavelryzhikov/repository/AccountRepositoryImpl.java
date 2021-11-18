@@ -4,13 +4,11 @@
 package com.github.pavelryzhikov.repository;
 
 import com.github.pavelryzhikov.dto.Account;
+import com.github.pavelryzhikov.service.AccountService;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -21,35 +19,40 @@ import java.util.Set;
 public class AccountRepositoryImpl implements AccountRepository {
 
     private final String filePath;
-    private final ArrayList<String> fileData = new ArrayList<>();
-    private final Set<Account> repository = new HashSet<>();
 
     /**
      * Конструктор принимает на вход путь к файлу счетов клиентов
      *
      * @param path путь к файлу счетов клиентов
      */
-    AccountRepositoryImpl(String path) {
+    AccountRepositoryImpl(String path) //throws FileNotFoundException
+    {
+        // TODO: 11/17/21 попробовать добавить проверку в конструктор
         filePath = path;
+//        if (!Files.exists(Paths.get(filePath))) {
+//            throw new FileNotFoundException();
+//        }
     }
 
 
     /**
      * получение счетов по id клиента
      *
-     * @param clientId id клиента
+     * @param clientId
+     *        id клиента
      * @return Set<Account>
      * список счетов
      */
     @SneakyThrows
     public Set<Account> getAllAccountsByClientId(long clientId) {
         if (!Files.exists(Paths.get(filePath))) {
-            throw new FileNotFoundException("aaaa");
+            throw new FileNotFoundException();
         }
 
         /**
          * чтение из файла
          */
+        ArrayList<String> fileData = new ArrayList<>();
         FileInputStream fileInputStream = new FileInputStream(filePath);
         try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream))) {
             while (bufferedReader.ready()) {
@@ -60,20 +63,38 @@ public class AccountRepositoryImpl implements AccountRepository {
         /**
          * заполнение репозитария
          */
-        fillRepository(clientId);
 
-        return repository;
+
+        return fillRepository(clientId, fileData);
     }
 
     /**
      * метод обновляет файл счетов клиентов по заданным параметрам
      *
-     * @param clientId id клиента
-     * @param account  номер счета
+     * @param clientId
+     *        id клиента
+     * @param account
+     *        номер счета который нужно найти
      */
-    public void updateFileByClientIdAndAccount(Long clientId, String account) {
+    public void updateFileByClientIdAndAccount(Long clientId, String account) throws IOException {
         log.debug("call updateFileByClientIdAndAccount");
+        AccountService accountService = new AccountService(this);
+        if (!accountService.isAccountExist(clientId, new Account(account)))
+            throw new IllegalArgumentException("счета " + account + " нет в файле");
+        long ass;
+        RandomAccessFile randomAccessFile = new RandomAccessFile(filePath, "rw");
+        while (randomAccessFile.readByte() != 0) {
+            String str = randomAccessFile.readLine();
+            ass = randomAccessFile.getFilePointer();
+            int indexOfAccountInLine = str.lastIndexOf(account);
+            if (indexOfAccountInLine != -1) {
+                randomAccessFile.seek(ass - (str.length() - indexOfAccountInLine) - 1);
+                randomAccessFile.writeBytes(new String(new char[account.length()]).replace("\0", "*"));
+                break;
+            }
+        }
     }
+
 
 //    private void readFile(String path) throws IOException {
 //        fileData = (ArrayList) Files.readAllLines(Paths.get(path));
@@ -84,8 +105,9 @@ public class AccountRepositoryImpl implements AccountRepository {
      *
      * @param clientId id клиента
      */
-    private void fillRepository(Long clientId) {
+    private Set<Account> fillRepository(Long clientId, ArrayList<String> fileData) {
         int i = 0;
+        Set<Account> repository = new HashSet<>();
         String number = null;
         Long parsed_client_id = null;
         for (String a : fileData) {
@@ -104,6 +126,7 @@ public class AccountRepositoryImpl implements AccountRepository {
                 repository.add(account);
             }
         }
+        return repository;
     }
 
 }
