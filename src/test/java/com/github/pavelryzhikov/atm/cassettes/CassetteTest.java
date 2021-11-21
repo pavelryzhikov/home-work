@@ -1,4 +1,4 @@
-package com.sbrf.reboot.atm.cassettes;
+package com.github.pavelryzhikov.atm.cassettes;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
