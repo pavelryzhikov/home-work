@@ -1,5 +1,7 @@
 package com.github.pavelryzhikov.service;
 
+import com.github.pavelryzhikov.dto.Account;
+
 import java.util.Set;
 
 /**
