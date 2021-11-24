@@ -7,16 +7,38 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * класс данные Account (счет)
- * <p>
- * accNumber содержит только поле номер счета
+ * класс Account (счет)
  */
 
 @Value
 @Builder
-public class Account {
+public class Account implements Comparable<Account> {
    String number;
-   long id;
+   Long id;
    LocalDate createDate;
    BigDecimal balance;
+
+   @Override
+   public int compareTo(Account o) {
+      if (o == null) {
+         throw new NullPointerException();
+      }
+      if (o.getId() == null) {
+         throw new NullPointerException();
+      }
+      if (o.getCreateDate() == null) {
+         throw new NullPointerException();
+      }
+      if (o.getCreateDate() == null) {
+         throw new NullPointerException();
+      }
+      int resultCompare = getId().compareTo(o.getId());
+      if (resultCompare == 0) {
+         resultCompare = getCreateDate().compareTo(o.getCreateDate());
+         if (resultCompare == 0) {
+            return getBalance().compareTo(o.getBalance());
+         }
+      }
+      return resultCompare;
+   }
 }
