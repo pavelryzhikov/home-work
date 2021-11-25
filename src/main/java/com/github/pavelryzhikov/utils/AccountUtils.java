@@ -1,6 +1,9 @@
 package com.github.pavelryzhikov.utils;
 
 import com.github.pavelryzhikov.dto.Account;
+import com.github.pavelryzhikov.utils.comparators.Id;
+import com.github.pavelryzhikov.utils.comparators.IdCreateDate;
+import com.github.pavelryzhikov.utils.comparators.IdCreateDateBalance;
 
 import java.util.List;
 
@@ -12,7 +15,7 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedById(List<Account> accounts) {
-        accounts.sort(Account::compareTo);
+        accounts.sort(new Id());
     }
 
     /**
@@ -21,7 +24,7 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedByIdDate(List<Account> accounts) {
-        accounts.sort(Account::compareTo);
+        accounts.sort(new IdCreateDate());
     }
 
     /**
@@ -30,7 +33,7 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedByIdDateBalance(List<Account> accounts) {
-        accounts.sort(Account::compareTo);
+        accounts.sort(new IdCreateDateBalance());
     }
 
 }

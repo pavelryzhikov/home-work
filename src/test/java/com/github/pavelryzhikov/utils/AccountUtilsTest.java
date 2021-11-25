@@ -86,23 +86,5 @@ class AccountUtilsTest {
         Assertions.assertEquals(LocalDate.now().minusDays(1), accounts.get(4).getCreateDate());
     }
 
-    /**
-     * тест счетов
-     * | id   | createDate | balance | number |
-     * --------------------------------------
-     * | 1L   | now()-4    | 10.0    | null |
-     * | null | now()-3    | 10.0    | null |
-     */
-    @Test
-    void sortedByIdWithNull() {
-        List<Account> accounts = new ArrayList<Account>() {{
-            add(Account.builder().id(1L).createDate(LocalDate.now().minusDays(4)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(null).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN.subtract(BigDecimal.ONE)).build());
-        }};
-
-        Assertions.assertThrows(NullPointerException.class, () -> AccountUtils.sortedByIdDateBalance(accounts));
-
-    }
-
 
 }
