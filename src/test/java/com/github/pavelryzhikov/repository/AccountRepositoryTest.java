@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -22,7 +23,7 @@ public class AccountRepositoryTest {
      * проверка количества вызовов метода
      */
     @Test
-    void callZeroTimesTest() {
+    void callZeroTimesTest() throws FileNotFoundException {
         Set<Account> setAccount = new HashSet();
         setAccount.add(account);
         verify(accountRepository, times(0)).getAllAccountsByClientId(1L);

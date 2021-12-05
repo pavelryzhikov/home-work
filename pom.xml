@@ -32,6 +32,10 @@
         <mockito-core.version>3.11.2</mockito-core.version>
         <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
         <slf4j.version>1.7.26</slf4j.version>
+        <jackson-databind.version>2.11.3</jackson-databind.version>
+        <gson.version>2.2.4</gson.version>
+        <tomcat-embed-core.version>9.0.41</tomcat-embed-core.version>
+        <json-simple.version>1.1.1</json-simple.version>
     </properties>
 
     <dependencies>
@@ -66,22 +70,22 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
-            <version>2.11.3</version>
+            <version>${jackson-databind.version}</version>
         </dependency>
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
-            <version>2.2.4</version>
+            <version>${gson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-core</artifactId>
-            <version>9.0.41</version>
+            <version>${tomcat-embed-core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.googlecode.json-simple</groupId>
             <artifactId>json-simple</artifactId>
-            <version>1.1.1</version>
+            <version>${json-simple.version}</version>
         </dependency>
     </dependencies>
 

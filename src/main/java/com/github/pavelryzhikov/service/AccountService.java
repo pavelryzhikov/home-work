@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.FileNotFoundException;
+
 /**
  * Класс упраыляющий репозиторием счетов
  */
@@ -25,7 +27,7 @@ public class AccountService {
      * @return boolean
      * возвращает ответ найден ли счет по id клиента
      */
-    public boolean isAccountExist(long clientId, Account account) {
+    public boolean isAccountExist(long clientId, Account account) throws FileNotFoundException {
         return accRep.getAllAccountsByClientId(clientId).contains(account);
     }
 }

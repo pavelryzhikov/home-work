@@ -2,6 +2,7 @@ package com.github.pavelryzhikov.repository;
 
 import com.github.pavelryzhikov.dto.Account;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Set;
 
@@ -18,7 +19,7 @@ public interface AccountRepository {
      * @return Set<Account>
      * список счетов
      */
-    Set<Account> getAllAccountsByClientId(long clientId);
+    Set<Account> getAllAccountsByClientId(long clientId) throws FileNotFoundException;
 
     /**
      * метод обновляет файл счетов клиентов по заданным параметрам
