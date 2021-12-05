@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -29,7 +30,7 @@ class AccountRepositoryImplTest {
     void onlyPersonalAccounts() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
-        ArrayList<String> strings = new ArrayList<String>() {{
+        List<String> strings = new ArrayList<String>() {{
             add("2-ACCNUM");
             add("1-ACCNUM");
             add("4-ACC1NUM");
@@ -71,7 +72,7 @@ class AccountRepositoryImplTest {
     void accountsWithIdTwo() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(2);
-        ArrayList<String> strings = new ArrayList<String>() {{
+        List<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
         }};
         allAccountsByClientId.forEach(e -> assertTrue(strings.contains(e.getNumber())));
@@ -86,7 +87,7 @@ class AccountRepositoryImplTest {
     void accountsWithIdThreeFail() throws FileNotFoundException {
         accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(3);
-        ArrayList<String> strings = new ArrayList<String>() {{
+        List<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
         }};
         allAccountsByClientId.forEach(e -> assertFalse(strings.contains(e.getNumber())));
@@ -111,13 +112,13 @@ class AccountRepositoryImplTest {
         accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
 
         /**
-         * проверка что accountNumberFrom счет найден
+         * проверка, что accountNumberFrom счет найден
          */
 
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
 
         /**
-         * проверка что accountNumberTo счет НЕ найден
+         * проверка, что accountNumberTo счет НЕ найден
          */
 
         assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
@@ -148,13 +149,13 @@ class AccountRepositoryImplTest {
         accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
 
         /**
-         * проверка что accountNumberFrom счет найден
+         * проверка, что accountNumberFrom счет найден
          */
 
         assertTrue(new AccountService(accountRepository).isAccountExist(clientId, account));
 
         /**
-         * проверка что accountNumberTo счет НЕ найден
+         * проверка, что accountNumberTo счет НЕ найден
          */
 
         assertFalse(new AccountService(accountRepository).isAccountExist(clientId, accountMasked));
