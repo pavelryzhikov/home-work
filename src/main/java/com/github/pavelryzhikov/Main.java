@@ -1,6 +1,5 @@
 package com.github.pavelryzhikov;
 
-import com.github.pavelryzhikov.service.Account;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -18,17 +17,6 @@ public class Main {
         list.add("qq");
         Set<Integer> si = new HashSet<>();
         si.add(1);
-
-        System.out.println(si.toString());
-
-        //Account account = new Account(null);
-        //AccountService accountService = AccountService(null);
-        Account acc = new Account("SDSD");
-//        Account acc1 = Account.builder()
-//                .account("asasas");
-
-        //System.out.println(account.getAccount());
-
 
         log.debug("foo");
 

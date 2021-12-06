@@ -1,5 +1,6 @@
 package com.github.pavelryzhikov.service;
 
+import com.github.pavelryzhikov.dto.Account;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -14,7 +15,6 @@ public class AccountRepositoryTest {
     @Mock
     Account account;
 
-    //@Mock
     AccountRepository accountRepository = Mockito.mock(AccountRepository.class);
 
     /**

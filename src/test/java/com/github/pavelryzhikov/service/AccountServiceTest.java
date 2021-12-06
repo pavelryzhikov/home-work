@@ -1,5 +1,6 @@
 package com.github.pavelryzhikov.service;
 
+import com.github.pavelryzhikov.dto.Account;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -28,7 +29,7 @@ class AccountServiceTest {
 
     @Test
     void bookExist() {
-        Account account = new Account("ACC1234NUM");
+        Account account = Account.builder().number("ACC1234NUM").build();
         Set<Account> accounts = new HashSet();
         accounts.add(account);
 
@@ -40,10 +41,10 @@ class AccountServiceTest {
     @Test
     void bookNotExist() {
         Set<Account> accounts = new HashSet();
-        accounts.add(new Account("ACC1234NUM"));
+        accounts.add(Account.builder().number("ACC1234NUM").build());
 
         when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
 
-        assertFalse(accountService.isAccountExist(1L, new Account("ACC456NUM")));
+        assertFalse(accountService.isAccountExist(1L, Account.builder().number("ACC456NUM").build()));
     }
 }

@@ -5,7 +5,7 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  * класс реализующий сущность Кассета банкомата
@@ -17,12 +17,12 @@ import java.util.ArrayList;
 @FieldDefaults(makeFinal = true, level = AccessLevel.PRIVATE)
 public class Cassette<T extends Banknote> {
 
-    @NonNull ArrayList<T> cassetteStaff;
+    @NonNull List<T> cassetteStaff;
 
     /**
      * метод возвращает количество купюр в кассете
      *
-     * @return
+     * @return Количество купюр в кассете
      */
     public int getCountBanknotes() {
         return cassetteStaff.size();

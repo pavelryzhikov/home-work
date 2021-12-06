@@ -7,10 +7,10 @@ import java.util.ArrayList;
 
 class CassetteTest {
 
-    class OneHundred extends Banknote {
+    static class OneHundred extends Banknote {
     }
 
-    class OneThousand extends Banknote {
+    static class OneThousand extends Banknote {
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.github.pavelryzhikov.service;
 
+import com.github.pavelryzhikov.dto.Account;
 import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -7,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Класс упраыляющий репозиторием счетов
+ * Класс управляющий репозиторием счетов
  */
 
 @Slf4j
