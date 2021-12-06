@@ -1,8 +1,8 @@
-package com.sbrf.reboot.utils;
+package com.github.pavelryzhikov.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.sbrf.reboot.dto.Request;
-import com.sbrf.reboot.dto.Response;
+import com.github.pavelryzhikov.dto.Request;
+import com.github.pavelryzhikov.dto.Response;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -31,8 +31,8 @@ class JSONUtilsTest {
 
     @Test
     void JSONtoResponse() throws JsonProcessingException {
-        Response request = JSONUtils.JSONtoResponse("{\"statusCode\":\"SUCCESS\"}");
-        Assertions.assertEquals("SUCCESS", request.getStatusCode());
+        Response response = JSONUtils.JSONtoResponse("{\"statusCode\":\"SUCCESS\"}");
+        Assertions.assertEquals("SUCCESS", response.getStatusCode());
     }
 
 }
