@@ -15,7 +15,6 @@ public class AccountRepositoryTest {
     @Mock
     Account account;
 
-    //@Mock
     AccountRepository accountRepository = Mockito.mock(AccountRepository.class);
 
     /**

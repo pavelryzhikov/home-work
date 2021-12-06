@@ -13,12 +13,11 @@ class AccountUtilsTest {
 
     @Test
     void sortedById() {
-        List<Account> accounts = new ArrayList<Account>() {{
-            add(Account.builder().id(3L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(1L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-        }};
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(1L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
 
         AccountUtils.sortedById(accounts);
 
@@ -40,12 +39,12 @@ class AccountUtilsTest {
      */
     @Test
     void sortedByIdDate() {
-        List<Account> accounts = new ArrayList<Account>() {{
-            add(Account.builder().id(1L).createDate(LocalDate.now().minusDays(4)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(1)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-        }};
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(Account.builder().id(1L).createDate(LocalDate.now().minusDays(4)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(1)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
+
 
         AccountUtils.sortedByIdDate(accounts);
 
@@ -67,13 +66,13 @@ class AccountUtilsTest {
      */
     @Test
     void sortedByIdDateBalance() {
-        List<Account> accounts = new ArrayList<Account>() {{
-            add(Account.builder().id(1L).createDate(LocalDate.now().minusDays(4)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(1)).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
-            add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN.subtract(BigDecimal.ONE)).build());
-        }};
+        List<Account> accounts = new ArrayList<>();
+        accounts.add(Account.builder().id(1L).createDate(LocalDate.now().minusDays(4)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(1)).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(2L).createDate(LocalDate.now()).balance(BigDecimal.TEN).build());
+        accounts.add(Account.builder().id(3L).createDate(LocalDate.now().minusDays(3)).balance(BigDecimal.TEN.subtract(BigDecimal.ONE)).build());
+
 
         AccountUtils.sortedByIdDateBalance(accounts);
 

@@ -1,10 +1,8 @@
 package com.github.pavelryzhikov.utils;
 
 import com.github.pavelryzhikov.dto.Account;
-import com.github.pavelryzhikov.utils.comparators.Id;
-import com.github.pavelryzhikov.utils.comparators.IdCreateDate;
-import com.github.pavelryzhikov.utils.comparators.IdCreateDateBalance;
 
+import java.util.Comparator;
 import java.util.List;
 
 public class AccountUtils {
@@ -15,7 +13,12 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedById(List<Account> accounts) {
-        accounts.sort(new Id());
+        accounts.sort(new Comparator<Account>() {
+            @Override
+            public int compare(Account o1, Account o2) {
+                return Long.compare(o1.getId(), o2.getId());
+            }
+        });
     }
 
     /**
@@ -24,7 +27,16 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedByIdDate(List<Account> accounts) {
-        accounts.sort(new IdCreateDate());
+        accounts.sort(new Comparator<Account>() {
+            @Override
+            public int compare(Account o1, Account o2) {
+                int result = Long.compare(o1.getId(), o2.getId());
+                if (result == 0) {
+                    result = o1.getCreateDate().compareTo(o2.getCreateDate());
+                }
+                return result;
+            }
+        });
     }
 
     /**
@@ -33,7 +45,19 @@ public class AccountUtils {
      * @param accounts Счет
      */
     public static void sortedByIdDateBalance(List<Account> accounts) {
-        accounts.sort(new IdCreateDateBalance());
+        accounts.sort(new Comparator<Account>() {
+            @Override
+            public int compare(Account o1, Account o2) {
+                int result = Long.compare(o1.getId(), o2.getId());
+                if (result == 0) {
+                    result = o1.getCreateDate().compareTo(o2.getCreateDate());
+                    if (result == 0) {
+                        result = o1.getBalance().compareTo(o2.getBalance());
+                    }
+                }
+                return result;
+            }
+        });
     }
 
 }

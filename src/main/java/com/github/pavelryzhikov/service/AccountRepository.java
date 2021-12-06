@@ -5,7 +5,7 @@ import com.github.pavelryzhikov.dto.Account;
 import java.util.Set;
 
 /**
- * Класс репозитарий хранящий счета
+ * Класс репозиторий хранящий счета
  */
 
 //@Slf4j

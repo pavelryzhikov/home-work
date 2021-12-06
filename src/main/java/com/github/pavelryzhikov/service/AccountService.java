@@ -8,7 +8,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * Класс упраыляющий репозиторием счетов
+ * Класс управляющий репозиторием счетов
  */
 
 @Slf4j
