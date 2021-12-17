@@ -1,4 +1,4 @@
-package com.github.pavelryzhikov.service;
+package com.github.pavelryzhikov.dto;
 
 import lombok.NonNull;
 import lombok.Value;
@@ -11,7 +11,7 @@ import lombok.Value;
 
 @Value
 public class Account {
-   @NonNull String account;
+   @NonNull String number;
 }
 
 
