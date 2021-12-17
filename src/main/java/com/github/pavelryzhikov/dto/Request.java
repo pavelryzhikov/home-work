@@ -1,8 +1,15 @@
 package com.github.pavelryzhikov.dto;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class Request {
-    String atmNumber;
+    private String atmNumber;
+
+    public Request() {
+    }
+
+    public Request(String atmNumber) {
+        this.atmNumber = atmNumber;
+    }
 }

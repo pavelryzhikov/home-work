@@ -1,8 +1,17 @@
 package com.github.pavelryzhikov.dto;
 
-import lombok.Value;
+import lombok.Data;
 
-@Value
+@Data
 public class Response {
-    String statusCode;
+
+    private String statusCode;
+
+    public Response() {
+    }
+
+    public Response(String statusCode) {
+        this.statusCode = statusCode;
+    }
+
 }
