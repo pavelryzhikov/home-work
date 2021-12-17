@@ -1,11 +1,14 @@
 package com.github.pavelryzhikov.service;
 
 import com.github.pavelryzhikov.dto.Account;
+import com.github.pavelryzhikov.repository.AccountRepository;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -28,8 +31,9 @@ class AccountServiceTest {
     }
 
     @Test
-    void bookExist() {
+    void bookExist() throws FileNotFoundException {
         Account account = Account.builder().number("ACC1234NUM").build();
+
         Set<Account> accounts = new HashSet();
         accounts.add(account);
 
@@ -39,7 +43,7 @@ class AccountServiceTest {
     }
 
     @Test
-    void bookNotExist() {
+    void bookNotExist() throws FileNotFoundException {
         Set<Account> accounts = new HashSet();
         accounts.add(Account.builder().number("ACC1234NUM").build());
 

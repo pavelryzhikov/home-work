@@ -1,6 +1,7 @@
 package com.github.pavelryzhikov.dto;
 
 import lombok.Builder;
+import lombok.NonNull;
 import lombok.Value;
 
 import java.math.BigDecimal;
@@ -20,3 +21,5 @@ public class Account {
    LocalDate createDate;
    BigDecimal balance;
 }
+
+
