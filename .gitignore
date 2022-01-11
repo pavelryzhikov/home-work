@@ -8,5 +8,4 @@ target/
 *.iml
 *.ipr
 
-src/main/resources/
-
+src/main/resources/AccountsUpdated.txt
