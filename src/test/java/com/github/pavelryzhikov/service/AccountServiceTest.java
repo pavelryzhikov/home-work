@@ -1,10 +1,7 @@
 package com.github.pavelryzhikov.service;
 
 import com.github.pavelryzhikov.dto.Account;
-import com.github.pavelryzhikov.repository.AccountRepository;
-
-import com.sbrf.reboot.dto.Account;
-import com.sbrf.reboot.repository.AccountRepository;
+import com.github.pavelryzhikov.repository.Repository;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,27 +10,24 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.io.FileNotFoundException;
 import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.when;
 
 class AccountServiceTest {
 
     @Mock
-    AccountRepository accountRepository;
+    Repository repository;
 
     AccountService accountService;
 
     @BeforeEach
     void setUp() {
-        accountRepository = Mockito.mock(AccountRepository.class);
+        repository = Mockito.mock(Repository.class);
 
-        accountService = new AccountService(accountRepository);
+        accountService = new AccountService(repository);
     }
 
     @SneakyThrows
@@ -43,7 +37,7 @@ class AccountServiceTest {
         Set<Account> accounts = new HashSet();
         accounts.add(account);
 
-        when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
+        when(repository.getAllAccountsByClientId(1L)).thenReturn(accounts);
 
         assertTrue(accountService.isAccountExist(1L, account));
     }
@@ -54,7 +48,7 @@ class AccountServiceTest {
         Set<Account> accounts = new HashSet();
         accounts.add(new Account("ACC1234NUM"));
 
-        when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
+        when(repository.getAllAccountsByClientId(1L)).thenReturn(accounts);
 
         assertFalse(accountService.isAccountExist(1L, new Account("ACC456NUM")));
     }
@@ -70,7 +64,7 @@ class AccountServiceTest {
             add(accountWithMaxBalance);
         }};
 
-        when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
+        when(repository.getAllAccountsByClientId(1L)).thenReturn(accounts);
 
         assertEquals(accountWithMaxBalance, accountService.getMaxAccountBalance(1L));
     }
@@ -99,7 +93,7 @@ class AccountServiceTest {
             add(account4);
         }};
 
-        when(accountRepository.getAllAccountsByClientId(1L)).thenReturn(accounts);
+        when(repository.getAllAccountsByClientId(1L)).thenReturn(accounts);
 
         Set allAccountsByDateMoreThen = accountService.getAllAccountsByDateMoreThen(1L, LocalDate.now().minusDays(2));
 

@@ -15,7 +15,7 @@ import java.util.Set;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static org.junit.jupiter.api.Assertions.*;
 
-class AccountRepositoryImplTest {
+class RepositoryImplTest {
 
     AccountRepository accountRepository;
     private static final String FILE_PATH_CORRECT = "src/main/resources/Accounts.txt";
@@ -28,7 +28,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void onlyPersonalAccounts() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
+        accountRepository = new AccountRepository("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
         List<String> strings = new ArrayList<String>() {{
             add("2-ACCNUM");
@@ -46,7 +46,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void successGetAllAccountsByClientId() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl("src/main/resources/Accounts.txt");
+        accountRepository = new AccountRepository("src/main/resources/Accounts.txt");
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(1);
 
         assertEquals(1, (int) allAccountsByClientId.stream().filter(e -> e.getNumber().equals("4-ACC1NUM")).count());
@@ -57,7 +57,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void failGetAllAccountsByClientId() {
-        accountRepository = new AccountRepositoryImpl("somePath");
+        accountRepository = new AccountRepository("somePath");
         assertThrows(FileNotFoundException.class, () -> {
             accountRepository.getAllAccountsByClientId(1L);
         });
@@ -70,7 +70,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void accountsWithIdTwo() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        accountRepository = new AccountRepository(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(2);
         List<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
@@ -85,7 +85,7 @@ class AccountRepositoryImplTest {
      */
     @Test
     void accountsWithIdThreeFail() throws FileNotFoundException {
-        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        accountRepository = new AccountRepository(FILE_PATH_CORRECT);
         Set<Account> allAccountsByClientId = accountRepository.getAllAccountsByClientId(3);
         List<String> strings = new ArrayList<String>() {{
             add("5-ACC1NUM");
@@ -109,7 +109,7 @@ class AccountRepositoryImplTest {
 
 
         Files.copy(Paths.get(FILE_PATH_CORRECT), Paths.get(UPDATED_FILE_PATH), REPLACE_EXISTING);
-        accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
+        accountRepository = new AccountRepository(UPDATED_FILE_PATH);
 
         /**
          * проверка, что accountNumberFrom счет найден
@@ -146,7 +146,7 @@ class AccountRepositoryImplTest {
 
 
         Files.copy(Paths.get(FILE_PATH_CORRECT), Paths.get(UPDATED_FILE_PATH), REPLACE_EXISTING);
-        accountRepository = new AccountRepositoryImpl(UPDATED_FILE_PATH);
+        accountRepository = new AccountRepository(UPDATED_FILE_PATH);
 
         /**
          * проверка, что accountNumberFrom счет найден
@@ -173,7 +173,7 @@ class AccountRepositoryImplTest {
         Long clientId = -1L;
         String account = "5-ACC1NUM";
 
-        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        accountRepository = new AccountRepository(FILE_PATH_CORRECT);
         assertThrows(IllegalArgumentException.class, () -> {
             accountRepository.updateFileByClientIdAndAccount(clientId, account);
         });
@@ -185,7 +185,7 @@ class AccountRepositoryImplTest {
         Long clientId = 3L;
         String accountNumberFrom = "5-ACC1NUM";
 
-        accountRepository = new AccountRepositoryImpl(FILE_PATH_CORRECT);
+        accountRepository = new AccountRepository(FILE_PATH_CORRECT);
         assertThrows(IllegalArgumentException.class, () -> {
             accountRepository.updateFileByClientIdAndAccount(clientId, accountNumberFrom);
         });

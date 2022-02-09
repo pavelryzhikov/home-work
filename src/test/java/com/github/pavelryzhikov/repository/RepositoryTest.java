@@ -12,11 +12,11 @@ import java.util.Set;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-public class AccountRepositoryTest {
+public class RepositoryTest {
     @Mock
     Account account;
 
-    AccountRepository accountRepository = Mockito.mock(AccountRepository.class);
+    Repository repository = Mockito.mock(Repository.class);
 
     /**
      * проверка количества вызовов метода
@@ -25,7 +25,7 @@ public class AccountRepositoryTest {
     void callZeroTimesTest() throws FileNotFoundException {
         Set<Account> setAccount = new HashSet();
         setAccount.add(account);
-        verify(accountRepository, times(0)).getAllAccountsByClientId(1L);
+        verify(repository, times(0)).getAllAccountsByClientId(1L);
 
     }
 

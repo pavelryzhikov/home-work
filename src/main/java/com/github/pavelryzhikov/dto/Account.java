@@ -1,8 +1,8 @@
 package com.github.pavelryzhikov.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.NonNull;
-import lombok.Value;
+import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -13,13 +13,19 @@ import java.time.LocalDate;
  * accNumber содержит только поле номер счета
  */
 
-@Value
+@Data
 @Builder
+@AllArgsConstructor
 public class Account {
-   String number;
-   long id;
-   LocalDate createDate;
-   BigDecimal balance;
+   private String number;
+   private long id;
+   private LocalDate createDate;
+   private BigDecimal balance;
+   private long clientId;
+
+   public Account(String number) {
+      this.number = number;
+   }
 }
 
 
